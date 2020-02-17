@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>numpy基本操作 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一元操作###abs,fabs:绝对值，fabs 速度更快。 ###sqrt平方根 ###square平方 ###exp指数 e^x ###log,log10,log2,log1p自然对数log,底数为10的log,底数为2的log，log(1+x) ###sign求符号（+、—、0） ceil天花板函数 ###floor地板函数 ###rint四舍五入 ###modf将数组的整数部分和小数部分分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="numpy基本操作">
+<meta property="og:url" content="http://yoursite.com/2018/10/06/2018-10-06-numpy%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一元操作###abs,fabs:绝对值，fabs 速度更快。 ###sqrt平方根 ###square平方 ###exp指数 e^x ###log,log10,log2,log1p自然对数log,底数为10的log,底数为2的log，log(1+x) ###sign求符号（+、—、0） ceil天花板函数 ###floor地板函数 ###rint四舍五入 ###modf将数组的整数部分和小数部分分">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-10-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-10-06T12:00:07.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="tensorflow">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018-10-06-numpy基本操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/06/2018-10-06-numpy%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" class="article-date">
+  <time datetime="2018-10-05T16:00:00.000Z" itemprop="datePublished">2018-10-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      numpy基本操作
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一元操作"><a href="#一元操作" class="headerlink" title="一元操作"></a>一元操作</h2><p>###abs,fabs:<br>绝对值，fabs 速度更快。</p>
+<p>###sqrt<br>平方根</p>
+<p>###square<br>平方</p>
+<p>###exp<br>指数 e^x</p>
+<p>###log,log10,log2,log1p<br>自然对数log,底数为10的log,底数为2的log，log(1+x)</p>
+<p>###sign<br>求符号（+、—、0）</p>
+<h3 id="ceil"><a href="#ceil" class="headerlink" title="ceil"></a>ceil</h3><p>天花板函数</p>
+<p>###floor<br>地板函数</p>
+<p>###rint<br>四舍五入</p>
+<p>###modf<br>将数组的整数部分和小数部分分别返回</p>
+<p>###isnan<br>数组中值是否是NaN，返回值是相应的布尔数组</p>
+<p>###isfinite,isinf<br>数组中是否是有穷的（finite),无穷的（inf),返回是对应布尔数组</p>
+<h3 id="cos-cosh-sin-sinh-tan-tanh"><a href="#cos-cosh-sin-sinh-tan-tanh" class="headerlink" title="cos,cosh,sin,sinh,tan,tanh"></a>cos,cosh,sin,sinh,tan,tanh</h3><p>普通型和双曲型三角函数</p>
+<p>###arccos,arccosh,arcsin,arcsinh,arctan,arctanh<br>反三角函数</p>
+<p>###logical_not<br>数组元素非值，相当于 -arr</p>
+<p>##二元函数</p>
+<p>###add<br>元素加</p>
+<h3 id="subtract"><a href="#subtract" class="headerlink" title="subtract"></a>subtract</h3><p>元素减</p>
+<h3 id="multiply"><a href="#multiply" class="headerlink" title="multiply"></a>multiply</h3><p>元素乘</p>
+<h3 id="divide，floor-divide"><a href="#divide，floor-divide" class="headerlink" title="divide，floor_divide"></a>divide，floor_divide</h3><p>除，向下整除</p>
+<h3 id="power"><a href="#power" class="headerlink" title="power"></a>power</h3><p>对第一个数组的元素A,第二个数组的元素B,计算 A^B</p>
+<p>###maximum,fmax<br>最大值，fmax忽略NaN</p>
+<p>###minimum,fmin<br>最小值，fmin忽略NaN</p>
+<p>###mod<br>模</p>
+<p>###copysign<br>复制第一个数组的符号到第二个数组</p>
+<p>###greater,greater_equal，less,less_equal，equal,not_equal<br>大小比较，&gt;,&gt;=,&lt;,&lt;=，==,!=。返回布尔型数组</p>
+<p>###logical_and,logical_or,logical_xor<br>逻辑真值计算，相当于 &amp;，|，^</p>
+<p>##三元运算</p>
+<p>###where</p>
+<pre><code>x=np.array([1,2,3,4,5])
+y=np.array([6,7,8,9,10])
+cond=np.array([True,False,True,False,True])
+result=np.where(cond,x,y)</code></pre><p>##统计<br>###sum<br>数组求和</p>
+<p>###mean<br>数组求平均值</p>
+<p>###std,var<br>数组标准差，方差</p>
+<p>###min,max<br>最大、最小值</p>
+<p>###argmin,argmax<br>最大最小值的索引</p>
+<p>###cumsum,cumprod<br>所有元素的累计和，累计积</p>
+<pre><code>arr=np.array([[0,1,2],[3,4,5],[6,7,8]])
+arr.cumsum（0）  # 纵向和
+=([[0,1,2],
+   [3,5,7],
+   [9,12,15]])
+arr.cumprod(1)  # 横向积
+=([[0,0,0],
+   [3,12,60],
+   [6,42,336]])</code></pre><p>#其他<br>###x.sort()<br>排序</p>
+<p>###unique(x)<br>唯一化，即去重</p>
+<h3 id="intersect1d-x-y"><a href="#intersect1d-x-y" class="headerlink" title="intersect1d(x,y)"></a>intersect1d(x,y)</h3><p>计算x,y公共元素，返回有序结果</p>
+<h3 id="union1d-x-y"><a href="#union1d-x-y" class="headerlink" title="union1d(x,y)"></a>union1d(x,y)</h3><p>并集</p>
+<h3 id="in1d-x-y"><a href="#in1d-x-y" class="headerlink" title="in1d(x,y)"></a>in1d(x,y)</h3><p>x的元素是否包含于y,返回布尔型数组</p>
+<h3 id="setdiff1d-x-y"><a href="#setdiff1d-x-y" class="headerlink" title="setdiff1d(x,y)"></a>setdiff1d(x,y)</h3><p>差集</p>
+<h3 id="setxor1d-x-y"><a href="#setxor1d-x-y" class="headerlink" title="setxor1d(x,y)"></a>setxor1d(x,y)</h3><p>异或集</p>
+<h2 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h2><h3 id="diag"><a href="#diag" class="headerlink" title="diag"></a>diag</h3><p>返回方阵的对角线元素，或将一维数组转换方阵</p>
+<h3 id="dot"><a href="#dot" class="headerlink" title="dot"></a>dot</h3><p>矩阵乘法</p>
+<h3 id="trace"><a href="#trace" class="headerlink" title="trace"></a>trace</h3><p>对角线元素和</p>
+<h3 id="det"><a href="#det" class="headerlink" title="det"></a>det</h3><p>计算行列式</p>
+<p>###eig<br>计算方阵的本征值和本征向量</p>
+<h3 id="inv"><a href="#inv" class="headerlink" title="inv"></a>inv</h3><p>矩阵的逆</p>
+<p>###pinv<br>矩阵 Moore-Penrose 的伪逆</p>
+<h3 id="qr"><a href="#qr" class="headerlink" title="qr"></a>qr</h3><p>QR分解</p>
+<h3 id="svd"><a href="#svd" class="headerlink" title="svd"></a>svd</h3><p>奇异值分解</p>
+<h3 id="solve"><a href="#solve" class="headerlink" title="solve"></a>solve</h3><p>解线性方程 Ax=b，A为方阵</p>
+<h3 id="lstsq"><a href="#lstsq" class="headerlink" title="lstsq"></a>lstsq</h3><p>计算Ax=b的最小二乘解</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/06/2018-10-06-numpy%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" data-id="ck6qikv9v000xx8uvh2pa53e0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/06/04/2019-07-24-C++%20%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C++ 内存管理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/06/2018-10-06-tensorflow%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">tensorflow数据读取</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/" rel="tag">jekyll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pyqt5/" rel="tag">pyqt5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity/" rel="tag">unity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="tag">内存管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" rel="tag">设计原则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91oss/" rel="tag">阿里云oss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 13.33px;">C++</a> <a href="/tags/jekyll/" style="font-size: 10px;">jekyll</a> <a href="/tags/pyqt5/" style="font-size: 13.33px;">pyqt5</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/tensorflow/" style="font-size: 16.67px;">tensorflow</a> <a href="/tags/unity/" style="font-size: 10px;">unity</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/%E5%85%B6%E4%BB%96/" style="font-size: 10px;">其他</a> <a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">内存管理</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">操作系统</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" style="font-size: 10px;">设计原则</a> <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91oss/" style="font-size: 16.67px;">阿里云oss</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 10px;">面向对象</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/02/17/2020-02-17-Github%20%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/2019-05-04-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E5%85%AB%E7%82%B9%E5%8E%9F%E5%88%99/">面向对象设计原则</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/04/2019-05-04-%E5%86%85%E6%A0%B8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">内核体系结构</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/04/2019-07-24-C++%20%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">C++ 内存管理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/06/2018-10-06-numpy%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">numpy基本操作</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

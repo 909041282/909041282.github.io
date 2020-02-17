@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>利用python+qt编写阿里云OSS文件管理系统上 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言由于markdown中博客的图片需要存放在云端，获取云端链接来插入博客，第一想法就是使用阿里云的OSS存储，但是阿里云OSS中的文件操作要通过管理控制台，就很不方便。一开始选择使用了图床的网页工具，他提供了多种云端托管上传，也试着用了一下，网页工具还是有点不方便，就想着自己做一个简易的阿里云文件上传管理系统。前面也看了阿里云OSS的帮助网页，整理了相关的python命令，可以用其打包成一个OS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用python+qt编写阿里云OSS文件管理系统上">
+<meta property="og:url" content="http://yoursite.com/2018/02/22/2018-02-22-%E5%88%A9%E7%94%A8python+qt%E7%BC%96%E5%86%99%E9%98%BF%E9%87%8C%E4%BA%91OSS%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E4%B8%8A/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言由于markdown中博客的图片需要存放在云端，获取云端链接来插入博客，第一想法就是使用阿里云的OSS存储，但是阿里云OSS中的文件操作要通过管理控制台，就很不方便。一开始选择使用了图床的网页工具，他提供了多种云端托管上传，也试着用了一下，网页工具还是有点不方便，就想着自己做一个简易的阿里云文件上传管理系统。前面也看了阿里云OSS的帮助网页，整理了相关的python命令，可以用其打包成一个OS">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/1.JPG">
+<meta property="og:image" content="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/2.JPG">
+<meta property="og:image" content="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/3.JPG">
+<meta property="og:image" content="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/4.JPG">
+<meta property="og:image" content="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/5.JPG">
+<meta property="og:image" content="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/6.JPG">
+<meta property="og:image" content="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/7.JPG">
+<meta property="og:image" content="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/8.JPG">
+<meta property="og:image" content="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/9.JPG">
+<meta property="og:image" content="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/10.JPG">
+<meta property="og:image" content="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/11.JPG">
+<meta property="og:image" content="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/12.JPG">
+<meta property="og:image" content="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/13.JPG">
+<meta property="article:published_time" content="2018-02-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-03-12T11:09:40.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="阿里云oss">
+<meta property="article:tag" content="pyqt5">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/1.JPG">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018-02-22-利用python+qt编写阿里云OSS文件管理系统上" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/22/2018-02-22-%E5%88%A9%E7%94%A8python+qt%E7%BC%96%E5%86%99%E9%98%BF%E9%87%8C%E4%BA%91OSS%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E4%B8%8A/" class="article-date">
+  <time datetime="2018-02-21T16:00:00.000Z" itemprop="datePublished">2018-02-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      利用python+qt编写阿里云OSS文件管理系统上
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>由于markdown中博客的图片需要存放在云端，获取云端链接来插入博客，第一想法就是使用阿里云的OSS存储，但是阿里云OSS中的文件操作要通过管理控制台，就很不方便。一开始选择使用了<a href="https://jiantuku.com/" target="_blank" rel="noopener" title="图床">图床</a>的网页工具，他提供了多种云端托管上传，也试着用了一下，网页工具还是有点不方便，就想着自己做一个简易的阿里云文件上传管理系统。<br>前面也看了阿里云OSS的帮助网页，整理了相关的<code>python</code>命令，可以用其打包成一个OSS操作类，再利用qt搭建GUI界面。想来难度也不是很高，就试着做了一下。</p>
+<h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><p>开发工具：VS2015+python3.6+pyqt5</p>
+<h2 id="安装pyqt5"><a href="#安装pyqt5" class="headerlink" title="安装pyqt5"></a>安装pyqt5</h2><p>在cmd窗口输入</p>
+<pre><code>pip install pyqt5
+pip install pyqt5-tools</code></pre><p>或者使用conda 安装，</p>
+<pre><code>conda install pyqt
+conda install pyqt5-tools</code></pre><p>运行 python,输入</p>
+<pre><code>from PyQt5 import QtWidgets</code></pre><p>没有报错，说明pyqt安装成功，对于重装的pyqt5，可能会遇到</p>
+<blockquote>
+<p>DLL load failed: 找不到指定的程序</p>
+</blockquote>
+<p>这时，先运行</p>
+<pre><code>pip uninstall pyqt5</code></pre><p>卸载原来的pyqt重新安装即可。如果还是失败，把conda也卸了重装。</p>
+<h2 id="安装pyinstaller"><a href="#安装pyinstaller" class="headerlink" title="安装pyinstaller"></a>安装pyinstaller</h2><p>pyinstall 是一个可以将py文件打包成exe文件的工具，在完成项目阶段性开发，可以利用pyinstall将文件打包发布。用conda安装提示找不到包，换 pip 安装即可：</p>
+<pre><code>pip install pyinstaller</code></pre><h2 id="VS2015准备"><a href="#VS2015准备" class="headerlink" title="VS2015准备"></a>VS2015准备</h2><p>这里需要给VS2015添加两个外部工具。选择  <em>工具-&gt;外部工具</em></p>
+<h3 id="添加-Qt-Designer"><a href="#添加-Qt-Designer" class="headerlink" title="添加 Qt Designer"></a>添加 Qt Designer</h3><p>用于绘制UI,路径为</p>
+<pre><code>{python安装目录}\Lib\site-packages\pyqt5-tools\designer.exe</code></pre><p>参数</p>
+<pre><code>$(ItemFileName).ui</code></pre><p>初始目录</p>
+<pre><code>$(ItemDir)</code></pre><p><img src="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/1.JPG" alt=""></p>
+<h3 id="添加-pyuic5"><a href="#添加-pyuic5" class="headerlink" title="添加 pyuic5"></a>添加 pyuic5</h3><p>用于将绘制的 UI 文件转化为python代码，路径为</p>
+<pre><code>{python安装目录}\Scripts\pyuic5.exe</code></pre><p>参数</p>
+<pre><code>$(ItemFileName).ui -o $(ItemFileName).py</code></pre><p>初始目录</p>
+<pre><code>$(ItemDir)</code></pre><p><img src="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/2.JPG" alt=""></p>
+<h3 id="添加-pyinstaller"><a href="#添加-pyinstaller" class="headerlink" title="添加 pyinstaller"></a>添加 pyinstaller</h3><p>用于打包工程，路径为</p>
+<pre><code>{python安装目录}\Scripts\pyinstaller.exe</code></pre><p>参数</p>
+<pre><code>-F $(ItemFileName).py</code></pre><p>初始目录</p>
+<pre><code>$(ItemDir)</code></pre><p><img src="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/3.JPG" alt=""></p>
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>文件-&gt;新建-&gt;项目，选择 Python Application。</p>
+<p>新建 aliyunManage.py 。在其中编写管理阿里云OSS的操作命令。<br>新建 appUI.py 。在其中编写窗口创建，逻辑实现。<br>新建 aliyunOSS.ui 。使用 Qt Designer 绘制UI窗口，完成后利用pyuic5转换成 aliyunOSS.py。</p>
+<h2 id="操作命令类编写"><a href="#操作命令类编写" class="headerlink" title="操作命令类编写"></a>操作命令类编写</h2><h3 id="json-操作"><a href="#json-操作" class="headerlink" title="json 操作"></a>json 操作</h3><p>这里将用户信息用Json文件存储在磁盘上，以便于用户信息修改。<br>新建一个 Json 文件，命名为 <em>data.json</em> 。添加用户信息：</p>
+<pre><code>{
+    &quot;AccessKeyId&quot;: &quot;你的AccessKeyId&quot;, 
+    &quot;AccessKeySecret&quot;: &quot;你的AccessKeySecret&quot;, 
+    &quot;EndPoint&quot;: &quot;你的EndPoint&quot;, 
+    &quot;bucket&quot;: &quot;你的bucket名&quot;
+}</code></pre><p>python 提供了 Json 的操作类，在这里先导入</p>
+<pre><code>import json</code></pre><p>json 类中主要有两个重要函数 </p>
+<pre><code>json.dump(数据，文件)  #文件读取
+数据=json.load（文件） #文件写入</code></pre><p>类代码：</p>
+<pre><code>class jsonOp(object):
+    data = {}
+    def __init__(self):
+        self.read()
+
+    def write(self):
+        with open(&apos;data.json&apos;,&apos;w&apos;) as fout:
+            json.dump(self.data,fout)
+
+    def read(self):
+        with open(&apos;data.json&apos;,&apos;r&apos;) as fin:
+            self.data=json.load(fin)</code></pre><h3 id="阿里云OSS操作"><a href="#阿里云OSS操作" class="headerlink" title="阿里云OSS操作"></a>阿里云OSS操作</h3><p>操作之前已经讲过，直接贴代码了：</p>
+<pre><code>class OSSOp(object):
+    &apos;&apos;&apos;
+    初始化，获得bucket与service，其中servic可用于操作bucket
+    &apos;&apos;&apos;
+    def __init__(self):      
+        jsonData=jsonOp()
+        auth = oss2.Auth(jsonData.data[&apos;AccessKeyId&apos;], jsonData.data[&apos;AccessKeySecret&apos;])
+        self.bucket = oss2.Bucket(auth, jsonData.data[&apos;EndPoint&apos;], jsonData.data[&apos;bucket&apos;])
+        self.service = oss2.Service(auth, jsonData.data[&apos;EndPoint&apos;])
+
+    &apos;&apos;&apos;
+    上传文件
+    &apos;&apos;&apos;
+    def putfile(self,putname,filename):
+        try:
+            self.bucket.put_object_from_file(putname, filename)
+        except Expection:
+            return False
+        else:
+            return True
+
+    &apos;&apos;&apos;
+    上传文件
+    &apos;&apos;&apos;
+    def downloadfile(self,filename):
+        try:
+            bucket.get_object_to_file(filename, filename, progress_callback=percentage)
+        except Expection:
+            return False
+        else:
+            return True
+        &apos;&apos;&apos;
+
+    下载文件
+    &apos;&apos;&apos;
+    def downloadfile(self,filename,savefile_path):
+        try:
+            self.bucket.get_object_to_file(filename, savefile_path, progress_callback=self.percentage)
+        except Expection:
+            return False
+        else:
+            return True
+
+    &apos;&apos;&apos;
+    显示下载文件百分比，cmd窗口查看
+    &apos;&apos;&apos;
+    def percentage(self,consumed_bytes, total_bytes):
+        if total_bytes:
+            rate = int(100 * (float(consumed_bytes) / float(total_bytes)))
+            print(&apos;\r{0}% &apos;.format(rate), end=&apos;&apos;)
+            sys.stdout.flush()
+
+    &apos;&apos;&apos;
+    查看bucket中文件,上限为100
+    &apos;&apos;&apos;
+    def showfile(self):
+        filename=[]
+        for b in islice(oss2.ObjectIterator(self.bucket), 100):
+            filename.append(b.key)
+        return filename
+
+    &apos;&apos;&apos;
+    查看bucket
+    &apos;&apos;&apos;
+    def showBucket(self):
+        print([b.name for b in oss2.BucketIterator(self.service)])
+
+
+    &apos;&apos;&apos;
+    删除文件
+    &apos;&apos;&apos;
+    def deletefile(self,filename):
+        try:
+            self.bucket.delete_object(filename)
+        except Exception:
+            return False
+        else:
+            return True</code></pre><p>在文件结尾加入测试代码：</p>
+<pre><code>if __name__ == &apos;__main__&apos;:
+    oss=OSSOp()
+    files=oss.showfile()
+    print(files)</code></pre><p>代码用于打印 bucket 中的文件</p>
+<h3 id="UI界面及接口槽设计"><a href="#UI界面及接口槽设计" class="headerlink" title="UI界面及接口槽设计"></a>UI界面及接口槽设计</h3><p>打开 alyunOSS.ui, 选择 <em>工具-&gt;Qt Designer</em> 打开UI设计工具</p>
+<p>新建一个Main Window，</p>
+<p><img src="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/4.JPG" alt=""></p>
+<p>因为是小工程，菜单栏没什么用处，选中删除。<br>再从 Containers 中拖一个 Tab Widget,利用 Tab Widget 作为框架</p>
+<p><img src="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/5.JPG" alt=""></p>
+<p>基本布局是这样：</p>
+<p><img src="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/6.JPG" alt=""></p>
+<p>这样</p>
+<p><img src="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/7.JPG" alt=""></p>
+<p>和这样</p>
+<p><img src="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/8.JPG" alt=""></p>
+<p>控件命名是这样：</p>
+<p><img src="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/9.JPG" alt=""></p>
+<p>信号和槽是这样</p>
+<p><img src="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/10.JPG" alt=""></p>
+<p>这里要提几点</p>
+<h4 id="信号和槽的连接"><a href="#信号和槽的连接" class="headerlink" title="信号和槽的连接"></a>信号和槽的连接</h4><p>在工具栏有一个 Edit Signals/Solts,点击他：</p>
+<p><img src="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/11.JPG" alt=""></p>
+<p>然后就可以拖动控件到链接到制定控件了，还可以自定义信号和槽。例如我拖到 downloadBtn 连接到 MainWindow,会自动弹出下图，左边 downloadBtn 由于是实例化 QPushButton 无法更改，右边 MainWindow 是自己定义的，继承了 QMainWindow，可以添加槽，但是不能删除原有槽，</p>
+<p><img src="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/12.JPG" alt=""></p>
+<p>点击 Edit，然后加号添加槽，更改名字后需要再次点击加号，否则无法改名，不知是bug还是什么缘故，没有细究，将就着用了。</p>
+<h3 id="导入py文件"><a href="#导入py文件" class="headerlink" title="导入py文件"></a>导入py文件</h3><p>UI文件设计好保存后，回到 VS2015 中，选择 <em>工具-&gt;pyuic5</em> 到处成 py 文件。</p>
+<p>如果想要运行看看UI效果，可以先将信号槽连接注释，</p>
+<p><img src="http://githubblogpic.oss-cn-huhehaote.aliyuncs.com/2018-02-22/13.JPG" alt=""></p>
+<p>然后在生成的 aliyunOSS.py 后面加如代码：</p>
+<pre><code>if name == &quot;__main__&quot;:
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())</code></pre><p><strong>注意，每次导出后 py 文件都会重置，所以自己在里面的修改是无效的。</strong></p>
+<p>也是因为这个，所以在设计过程中把 UI 和逻辑部分分离，，，下篇文件将描述逻辑部分设计。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/22/2018-02-22-%E5%88%A9%E7%94%A8python+qt%E7%BC%96%E5%86%99%E9%98%BF%E9%87%8C%E4%BA%91OSS%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E4%B8%8A/" data-id="ck6qikv7o000ex8uv37dq6odg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pyqt5/" rel="tag">pyqt5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91oss/" rel="tag">阿里云oss</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/12/2018-02-22-%E5%88%A9%E7%94%A8python+qt%E7%BC%96%E5%86%99%E9%98%BF%E9%87%8C%E4%BA%91OSS%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E4%B8%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          利用python+qt编写阿里云OSS文件管理系统下
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/02/21/2018-02-21-%E9%80%9A%E8%BF%87python%E7%AE%A1%E7%90%86%E9%98%BF%E9%87%8C%E4%BA%91oss/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">通过python管理阿里云oss文件</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/" rel="tag">jekyll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pyqt5/" rel="tag">pyqt5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity/" rel="tag">unity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="tag">内存管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" rel="tag">设计原则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91oss/" rel="tag">阿里云oss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 13.33px;">C++</a> <a href="/tags/jekyll/" style="font-size: 10px;">jekyll</a> <a href="/tags/pyqt5/" style="font-size: 13.33px;">pyqt5</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/tensorflow/" style="font-size: 16.67px;">tensorflow</a> <a href="/tags/unity/" style="font-size: 10px;">unity</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/%E5%85%B6%E4%BB%96/" style="font-size: 10px;">其他</a> <a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">内存管理</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">操作系统</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" style="font-size: 10px;">设计原则</a> <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91oss/" style="font-size: 16.67px;">阿里云oss</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 10px;">面向对象</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/02/17/2020-02-17-Github%20%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/2019-05-04-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E5%85%AB%E7%82%B9%E5%8E%9F%E5%88%99/">面向对象设计原则</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/04/2019-05-04-%E5%86%85%E6%A0%B8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">内核体系结构</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/04/2019-07-24-C++%20%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">C++ 内存管理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/06/2018-10-06-numpy%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">numpy基本操作</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
