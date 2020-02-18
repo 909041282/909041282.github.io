@@ -99,7 +99,7 @@
 <p>如果出现 vue : 无法加载文件 C:\Users\user\AppData\Roaming\npm\vue.ps1,因为在此系统禁止运行脚本。。。的问题。可以用管理员模式打开powershell 输入<br>    set-ExecutionPolicy RemoteSigned<br>选择Y。</p>
 <h2 id="建立博客"><a href="#建立博客" class="headerlink" title="建立博客"></a>建立博客</h2><p>先在一个合适的地方建立一个空文件夹，在该文件夹中 shift+鼠标右键 打开powershell<br>初始化blog<br>    hexo init</p>
 <p>这时候已经默认初始化了一个博客了，可以先启动服务在本地欣赏一下<br>    hexo s</p>
-<h2 id="编写和发布"><a href="#编写和发布" class="headerlink" title="编写和发布"></a>编写和发布</h2><p>首先需要编辑根目录下 ‘_config.yml’文件，这是hexo的配置文件，找到 ‘deploy:’,修改<br>仓库地址可以直接在仓库对应网页上复制，后面记得要加 ‘.git’<br>    deploy:<br>        type: git<br>        repository: <a href="mailto:git@github.com">git@github.com</a>:{你的id}/{你的id}.github.io.git   //将地址换成自己的<br>        branch: master</p>
+<h2 id="编写和发布"><a href="#编写和发布" class="headerlink" title="编写和发布"></a>编写和发布</h2><p>首先需要编辑根目录下 ‘_config.yml’文件，这是hexo的配置文件，找到 ‘deploy:’,修改<br>仓库地址可以直接在仓库对应网页上复制，后面记得要加 ‘.git’<br>    deploy:<br>        type: git<br>        repository: <a href="mailto:git@github.com">git@github.com</a>:{你的id}/{你的id}.github.io.git<br>        branch: master</p>
 <p>需要编写的博客放在 source/_post 文件夹下面，以 markdown 格式编写。<br>文件名为： YYYY-MM-DD-标题.md<br>每次改动博客或者编写完新博客，都需先运行命令生成网页<br>    hexo g</p>
 <p>然后发布到GitHub上<br>    hexo d</p>
 <p>如果在运行 “hexo d” 时遇到 “ERROR Deployer not found: git” 可以先运行命令<br>    npm install –save hexo-deployer-git</p>
